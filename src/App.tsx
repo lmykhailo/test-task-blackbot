@@ -6,8 +6,11 @@ function App() {
   const [ethAmount, setEthAmount] = useState<number>(0);
   const [usdtAmount, setUsdtAmount] = useState<number>(0);
   const [buyOrSell, setBuyOrSell] = useState<string>("buy");
+
+  //Getting exchangeRate from useExchange hook
   const { exchangeRate } = useExchange();
 
+  //Utility function to calculate USDT amount
   const calculateUsdtAmount = (ethAmount: number) => {
     if (ethAmount > 0 && exchangeRate) {
       return Number(
@@ -20,6 +23,7 @@ function App() {
     return 0;
   };
 
+  //Calculate USDT amount when ethAmount,buyOrSell or exchangeRate changes
   useEffect(() => {
     const amount = calculateUsdtAmount(ethAmount);
     setUsdtAmount(amount);
